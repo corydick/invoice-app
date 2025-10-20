@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invoice</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="invoice-container">
@@ -13,12 +13,12 @@
       <div class="company-info">
         <div class="logo">Logo</div>
         <div>
-          <h1>Company Name</h1>
-          <p>[Street Address]</p>
-          <p>[City, State, ZIP Code]</p>
-          <p>[Phone]</p>
-          <p>[Email Address]</p>
-          <p>[Company Website]</p>
+          <h1 id="header-company-name">Company Name</h1>
+          <p id="header-company-address">[Address]</p>
+          <p id="header-company-city">[City, State ZIP]</p>
+          <p id="header-company-phone">[Phone]</p>
+          <p id="header-company-email">[Email]</p>
+          <p id="header-company-website">[Website]</p>
         </div>
       </div>
       <div class="invoice-details">
@@ -28,17 +28,32 @@
       </div>
     </header>
 
+    <!-- Company Info -->
+    <section class="company-section">
+      <h3>Company Info</h3>
+      <input id="company-name" placeholder="Company Name" list="company-suggestions">
+      <datalist id="company-suggestions"></datalist>
+      <input id="company-address" placeholder="Street Address">
+      <input id="company-city" placeholder="City, State, ZIP Code">
+      <input id="company-phone" placeholder="Phone">
+      <input id="company-email" placeholder="Email">
+      <input id="company-website" placeholder="Website">
+      <button id="save-company">💾 Save Company</button>
+    </section>
+
     <!-- Bill To -->
     <section class="bill-to">
       <h3>BILL TO</h3>
-      <p contenteditable="true">[Recipient Name]</p>
-      <p contenteditable="true">[Company Name]</p>
-      <p contenteditable="true">[Street Address]</p>
-      <p contenteditable="true">[City, State, ZIP Code]</p>
-      <p contenteditable="true">[Phone]</p>
+      <input id="billto-name" placeholder="Recipient Name" list="billto-suggestions">
+      <datalist id="billto-suggestions"></datalist>
+      <input id="billto-company" placeholder="Company Name">
+      <input id="billto-address" placeholder="Street Address">
+      <input id="billto-city" placeholder="City, State, ZIP Code">
+      <input id="billto-phone" placeholder="Phone">
+      <button id="save-billto">💾 Save Bill To</button>
     </section>
 
-    <!-- Invoice Items -->
+    <!-- Items -->
     <table>
       <thead>
         <tr>
@@ -51,9 +66,9 @@
       <tbody id="invoice-items">
         <tr>
           <td contenteditable="true">Product 1</td>
-          <td contenteditable="true" class="qty">2</td>
-          <td contenteditable="true" class="price">50.00</td>
-          <td class="amount">$100.00</td>
+          <td contenteditable="true" class="qty">1</td>
+          <td contenteditable="true" class="price">0.00</td>
+          <td class="amount">$0.00</td>
         </tr>
       </tbody>
     </table>
@@ -80,7 +95,6 @@
       <p>Thank you for your business!</p>
     </footer>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
