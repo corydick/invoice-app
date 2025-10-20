@@ -3,98 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice</title>
+  <title>Picture to PDF Converter</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="invoice-container">
-    <!-- Header -->
-    <header>
-      <div class="company-info">
-        <div class="logo">Logo</div>
-        <div>
-          <h1 id="header-company-name">Company Name</h1>
-          <p id="header-company-address">[Address]</p>
-          <p id="header-company-city">[City, State ZIP]</p>
-          <p id="header-company-phone">[Phone]</p>
-          <p id="header-company-email">[Email]</p>
-          <p id="header-company-website">[Website]</p>
-        </div>
-      </div>
-      <div class="invoice-details">
-        <h2>INVOICE</h2>
-        <p><strong>Date:</strong> <span id="invoice-date"></span></p>
-        <p><strong>Invoice #:</strong> <span id="invoice-number">0001</span></p>
-      </div>
-    </header>
-
-    <!-- Company Info -->
-    <section class="company-section">
-      <h3>Company Info</h3>
-      <input id="company-name" placeholder="Company Name" list="company-suggestions">
-      <datalist id="company-suggestions"></datalist>
-      <input id="company-address" placeholder="Street Address">
-      <input id="company-city" placeholder="City, State, ZIP Code">
-      <input id="company-phone" placeholder="Phone">
-      <input id="company-email" placeholder="Email">
-      <input id="company-website" placeholder="Website">
-      <button id="save-company">💾 Save Company</button>
-    </section>
-
-    <!-- Bill To -->
-    <section class="bill-to">
-      <h3>BILL TO</h3>
-      <input id="billto-name" placeholder="Recipient Name" list="billto-suggestions">
-      <datalist id="billto-suggestions"></datalist>
-      <input id="billto-company" placeholder="Company Name">
-      <input id="billto-address" placeholder="Street Address">
-      <input id="billto-city" placeholder="City, State, ZIP Code">
-      <input id="billto-phone" placeholder="Phone">
-      <button id="save-billto">💾 Save Bill To</button>
-    </section>
-
-    <!-- Items -->
-    <table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Qty</th>
-          <th>Unit Price</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody id="invoice-items">
-        <tr>
-          <td contenteditable="true">Product 1</td>
-          <td contenteditable="true" class="qty">1</td>
-          <td contenteditable="true" class="price">0.00</td>
-          <td class="amount">$0.00</td>
-        </tr>
-      </tbody>
-    </table>
-    <button id="add-item">+ Add Item</button>
-
-    <!-- Totals -->
-    <div class="totals">
-      <p><span>Subtotal:</span> <span id="subtotal">$0.00</span></p>
-      <p><span>Discounts:</span> <span id="discounts">$0.00</span></p>
-      <p><span>Taxes:</span> <span id="taxes">$0.00</span></p>
-      <p class="grand-total"><span>Total:</span> <span id="total">$0.00</span></p>
-    </div>
-
-    <!-- Comments -->
-    <section class="comments">
-      <h3>COMMENTS</h3>
-      <p contenteditable="true">
-        1. Payment due in 30 days<br>
-        2. Please note the invoice number in your payment method
-      </p>
-    </section>
-
-    <footer>
-      <p>Thank you for your business!</p>
-    </footer>
+  <div class="app">
+    <h1>📸 Picture to PDF Converter</h1>
+    <input type="file" id="imageInput" multiple accept="image/*">
+    <div id="preview"></div>
+    <button id="convertBtn" disabled>Convert to PDF</button>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
