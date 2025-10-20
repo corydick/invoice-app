@@ -22,12 +22,17 @@ header {
 }
 
 .company-info select {
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding: 5px;
   width: 100%;
 }
 
-.company-select-row {
+.logo img {
+  max-width: 80px;
+  border-radius: 50%;
+}
+
+.row-between {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.3rem;
@@ -40,11 +45,11 @@ header {
   border: none;
   border-radius: 4px;
   font-size: 0.8rem;
+  cursor: pointer;
 }
 
-.logo img {
-  max-width: 80px;
-  border-radius: 50%;
+.mini-btn.gray {
+  background: #999;
 }
 
 .addresses {
@@ -91,17 +96,39 @@ header {
   text-align: right;
 }
 
-.download-btn {
+.totals input {
+  width: 80px;
+  text-align: right;
+  margin-left: 5px;
+}
+
+.button-row {
+  display: flex;
+  gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.download-btn,
+.preview-btn,
+.print-btn {
+  flex: 1;
   padding: 0.75rem;
-  width: 100%;
-  background: #34c759;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.download-btn { background: #34c759; }
+.preview-btn { background: #5856d6; }
+.print-btn { background: #ff9500; }
+
+.download-btn:hover,
+.preview-btn:hover,
+.print-btn:hover {
+  opacity: 0.9;
 }
 
 @media (max-width: 600px) {
