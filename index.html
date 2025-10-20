@@ -3,32 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- iPhone full screen -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="apple-touch-icon" href="icon.png" />
-
   <title>Invoice App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Invoice Creator</h1>
-  </header>
+  <div class="invoice-container">
+    <!-- Header -->
+    <header>
+      <div class="company-info">
+        <h1>Your Company Name</h1>
+        <p>123 Street Address, City, State</p>
+        <p>email@example.com | (555) 555-5555</p>
+      </div>
+      <div class="logo">
+        <img src="logo.png" alt="Logo" />
+      </div>
+    </header>
 
-  <main>
-    <form id="invoiceForm">
-      <input type="text" id="customerName" placeholder="Customer Name" required />
-      <input type="text" id="itemDescription" placeholder="Item Description" required />
-      <input type="number" id="quantity" placeholder="Quantity" required />
-      <input type="number" id="price" placeholder="Unit Price" required />
-      <button type="submit">Add Invoice</button>
-    </form>
+    <!-- Bill To / Ship To -->
+    <section class="addresses">
+      <div>
+        <h3>Bill To</h3>
+        <input type="text" placeholder="Client Name" id="billToName" />
+        <input type="text" placeholder="Client Address" id="billToAddress" />
+        <input type="email" placeholder="Client Email" id="billToEmail" />
+      </div>
+      <div>
+        <h3>Ship To</h3>
+        <input type="text" placeholder="Recipient Name" id="shipToName" />
+        <input type="text" placeholder="Recipient Address" id="shipToAddress" />
+        <input type="tel" placeholder="Recipient Phone" id="shipToPhone" />
+      </div>
+    </section>
 
-    <section id="invoices"></section>
-  </main>
+    <!-- Invoice Info -->
+    <section class="invoice-info">
+      <p><strong>Invoice #:</strong> <span id="invoiceNumber">001</span></p>
+      <p><strong>Date:</strong> <span id="invoiceDate"></span></p>
+      <p><strong>Due Date:</strong> <input type="date" id="dueDate"></p>
+    </section>
 
+    <!-- Line Items -->
+    <section class="items">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="invoiceItems"></tbody>
+      </table>
+      <button id="addItemBtn">+ Add Item</button>
+    </section>
+
+    <!-- Totals -->
+    <section class="totals">
+      <p>Subtotal: $<span id="subtotal">0.00</span></p>
+      <p>Tax (0%): $<span id="tax">0.00</span></p>
+      <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
+    </section>
+
+    <!-- Download Button -->
+    <button id="downloadPDFBtn" class="download-btn">📄 Download PDF</button>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
