@@ -12,9 +12,10 @@
     <!-- Header -->
     <header>
       <div class="company-info">
-        <div class="company-select-row">
+        <div class="row-between">
           <select id="companySelect"></select>
           <button id="addCompanyBtn" class="mini-btn">+ Add</button>
+          <button id="editCompanyBtn" class="mini-btn gray">✎</button>
         </div>
         <p id="companyAddress"></p>
         <p id="companyContact"></p>
@@ -28,9 +29,10 @@
     <section class="addresses">
       <div>
         <h3>Bill To</h3>
-        <div class="company-select-row">
+        <div class="row-between">
           <select id="billToSelect"></select>
           <button id="addBillToBtn" class="mini-btn">+ Add</button>
+          <button id="editBillToBtn" class="mini-btn gray">✎</button>
         </div>
         <p id="billToAddress"></p>
         <p id="billToEmail"></p>
@@ -42,6 +44,13 @@
       <p><strong>Invoice #:</strong> <span id="invoiceNumber">001</span></p>
       <p><strong>Date:</strong> <span id="invoiceDate"></span></p>
       <p><strong>Due Date:</strong> <input type="date" id="dueDate"></p>
+      <p><strong>Status:</strong> 
+        <select id="invoiceStatus">
+          <option value="Unpaid">Unpaid</option>
+          <option value="Paid">Paid</option>
+          <option value="Overdue">Overdue</option>
+        </select>
+      </p>
     </section>
 
     <!-- Line Items -->
@@ -63,12 +72,17 @@
     <!-- Totals -->
     <section class="totals">
       <p>Subtotal: $<span id="subtotal">0.00</span></p>
-      <p>Tax (0%): $<span id="tax">0.00</span></p>
+      <p>Tax Rate: <input type="number" id="taxRate" value="0" min="0" step="0.1">% = $<span id="tax">0.00</span></p>
+      <p>Discount: <input type="number" id="discount" value="0" min="0" step="0.01"></p>
       <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
     </section>
 
-    <!-- PDF Button -->
-    <button id="downloadPDFBtn" class="download-btn">📄 Download PDF</button>
+    <!-- PDF Buttons -->
+    <div class="button-row">
+      <button id="downloadPDFBtn" class="download-btn">📄 Download</button>
+      <button id="previewPDFBtn" class="preview-btn">👀 Preview</button>
+      <button id="printPDFBtn" class="print-btn">🖨️ Print</button>
+    </div>
   </div>
 
   <!-- JS Libraries -->
