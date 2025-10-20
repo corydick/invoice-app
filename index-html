@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- iPhone full screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="icon.png" />
+
+  <title>Invoice App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Invoice Creator</h1>
+  </header>
+
+  <main>
+    <form id="invoiceForm">
+      <input type="text" id="customerName" placeholder="Customer Name" required />
+      <input type="text" id="itemDescription" placeholder="Item Description" required />
+      <input type="number" id="quantity" placeholder="Quantity" required />
+      <input type="number" id="price" placeholder="Unit Price" required />
+      <button type="submit">Add Invoice</button>
+    </form>
+
+    <section id="invoices"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
