@@ -21,9 +21,11 @@ header {
   padding-bottom: 1rem;
 }
 
-.company-info h1 {
-  margin: 0;
-  font-size: 1.4rem;
+.company-info select {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px;
+  width: 100%;
 }
 
 .logo img {
@@ -38,7 +40,8 @@ header {
   gap: 1rem;
 }
 
-.addresses input {
+.addresses input,
+.addresses select {
   display: block;
   width: 100%;
   margin: 4px 0;
