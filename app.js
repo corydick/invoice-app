@@ -1,140 +1,54 @@
-// ======================
-// Date & Invoice Number
-// ======================
-document.getElementById("invoice-date").textContent = new Date().toISOString().split("T")[0];
+const { jsPDF } = window.jspdf;
 
-// ======================
-// Company & Bill To Storage with Suggestions
-// ======================
-const companyKey = 'savedCompanies';
-const billtoKey = 'savedBillto';
+const imageInput = document.getElementById("imageInput");
+const preview = document.getElementById("preview");
+const convertBtn = document.getElementById("convertBtn");
 
-function getSaved(key) {
-  return JSON.parse(localStorage.getItem(key)) || [];
-}
+let images = [];
 
-function saveEntry(key, entry) {
-  const saved = getSaved(key);
-  const existing = saved.findIndex(e => e.name === entry.name);
-  if (existing !== -1) saved[existing] = entry;
-  else saved.push(entry);
-  localStorage.setItem(key, JSON.stringify(saved));
-  updateSuggestions(key);
-}
-
-function updateSuggestions(key) {
-  const saved = getSaved(key);
-  const datalist = document.getElementById(key === companyKey ? 'company-suggestions' : 'billto-suggestions');
-  datalist.innerHTML = '';
-  saved.forEach(e => {
-    const opt = document.createElement('option');
-    opt.value = e.name;
-    datalist.appendChild(opt);
+// Handle file selection
+imageInput.addEventListener("change", (e) => {
+  images = Array.from(e.target.files);
+  preview.innerHTML = "";
+  
+  images.forEach(file => {
+    const img = document.createElement("img");
+    img.classList.add("preview-image");
+    img.src = URL.createObjectURL(file);
+    preview.appendChild(img);
   });
-}
 
-function fillFields(key, name) {
-  const entry = getSaved(key).find(e => e.name === name);
-  if (entry) {
-    if (key === companyKey) {
-      document.getElementById('company-name').value = entry.name;
-      document.getElementById('company-address').value = entry.address;
-      document.getElementById('company-city').value = entry.city;
-      document.getElementById('company-phone').value = entry.phone;
-      document.getElementById('company-email').value = entry.email;
-      document.getElementById('company-website').value = entry.website;
-      // also update header
-      document.getElementById('header-company-name').textContent = entry.name;
-      document.getElementById('header-company-address').textContent = entry.address;
-      document.getElementById('header-company-city').textContent = entry.city;
-      document.getElementById('header-company-phone').textContent = entry.phone;
-      document.getElementById('header-company-email').textContent = entry.email;
-      document.getElementById('header-company-website').textContent = entry.website;
-    } else {
-      document.getElementById('billto-name').value = entry.name;
-      document.getElementById('billto-company').value = entry.company;
-      document.getElementById('billto-address').value = entry.address;
-      document.getElementById('billto-city').value = entry.city;
-      document.getElementById('billto-phone').value = entry.phone;
-    }
+  convertBtn.disabled = images.length === 0;
+});
+
+// Convert images to PDF
+convertBtn.addEventListener("click", async () => {
+  if (images.length === 0) return;
+  
+  const pdf = new jsPDF();
+  for (let i = 0; i < images.length; i++) {
+    const file = images[i];
+    const imgData = await toBase64(file);
+    const img = new Image();
+    img.src = imgData;
+    await new Promise(resolve => img.onload = resolve);
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (img.height * pdfWidth) / img.width;
+
+    if (i > 0) pdf.addPage();
+    pdf.addImage(img, 'JPEG', 0, 0, pdfWidth, pdfHeight);
   }
-}
 
-// Company save
-document.getElementById('save-company').addEventListener('click', () => {
-  const entry = {
-    name: document.getElementById('company-name').value,
-    address: document.getElementById('company-address').value,
-    city: document.getElementById('company-city').value,
-    phone: document.getElementById('company-phone').value,
-    email: document.getElementById('company-email').value,
-    website: document.getElementById('company-website').value
-  };
-  if (entry.name) saveEntry(companyKey, entry);
+  pdf.save("converted.pdf");
 });
 
-// Bill to save
-document.getElementById('save-billto').addEventListener('click', () => {
-  const entry = {
-    name: document.getElementById('billto-name').value,
-    company: document.getElementById('billto-company').value,
-    address: document.getElementById('billto-address').value,
-    city: document.getElementById('billto-city').value,
-    phone: document.getElementById('billto-phone').value
-  };
-  if (entry.name) saveEntry(billtoKey, entry);
-});
-
-// Auto-fill on input
-document.getElementById('company-name').addEventListener('change', (e) => fillFields(companyKey, e.target.value));
-document.getElementById('billto-name').addEventListener('change', (e) => fillFields(billtoKey, e.target.value));
-
-updateSuggestions(companyKey);
-updateSuggestions(billtoKey);
-
-// ======================
-// Invoice Items
-// ======================
-document.getElementById("add-item").addEventListener("click", () => {
-  const tbody = document.getElementById("invoice-items");
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td contenteditable="true">New Item</td>
-    <td contenteditable="true" class="qty">1</td>
-    <td contenteditable="true" class="price">0.00</td>
-    <td class="amount">$0.00</td>
-  `;
-  tbody.appendChild(row);
-  attachListeners();
-  calculateTotals();
-});
-
-function attachListeners() {
-  document.querySelectorAll(".qty, .price").forEach(cell => {
-    cell.removeEventListener("input", calculateTotals);
-    cell.addEventListener("input", calculateTotals);
+// Helper function to convert file to base64
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
   });
 }
-
-function calculateTotals() {
-  let subtotal = 0;
-  document.querySelectorAll("#invoice-items tr").forEach(row => {
-    const qty = parseFloat(row.querySelector(".qty").textContent) || 0;
-    const price = parseFloat(row.querySelector(".price").textContent) || 0;
-    const amount = qty * price;
-    row.querySelector(".amount").textContent = `$${amount.toFixed(2)}`;
-    subtotal += amount;
-  });
-
-  const discounts = 0;
-  const taxes = subtotal * 0.085; // 8.5%
-  const total = subtotal - discounts + taxes;
-
-  document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
-  document.getElementById("discounts").textContent = `$${discounts.toFixed(2)}`;
-  document.getElementById("taxes").textContent = `$${taxes.toFixed(2)}`;
-  document.getElementById("total").textContent = `$${total.toFixed(2)}`;
-}
-
-attachListeners();
-calculateTotals();
