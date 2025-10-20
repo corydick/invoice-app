@@ -3,91 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>Invoice App</title>
+  <title>Invoice</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="invoice-container" id="invoice">
+  <div class="invoice-container">
     <!-- Header -->
     <header>
       <div class="company-info">
-        <div class="row-between">
-          <select id="companySelect"></select>
-          <button id="addCompanyBtn" class="mini-btn">+ Add</button>
-          <button id="editCompanyBtn" class="mini-btn gray">✎</button>
+        <div class="logo">Logo</div>
+        <div>
+          <h1>Company Name</h1>
+          <p>[Street Address]</p>
+          <p>[City, State, ZIP Code]</p>
+          <p>[Phone]</p>
+          <p>[Email Address]</p>
+          <p>[Company Website]</p>
         </div>
-        <p id="companyAddress"></p>
-        <p id="companyContact"></p>
       </div>
-      <div class="logo">
-        <img src="logo.png" alt="Logo" />
+      <div class="invoice-details">
+        <h2>INVOICE</h2>
+        <p><strong>Date:</strong> <span id="invoice-date"></span></p>
+        <p><strong>Invoice #:</strong> <span id="invoice-number">0001</span></p>
       </div>
     </header>
 
     <!-- Bill To -->
-    <section class="addresses">
-      <div>
-        <h3>Bill To</h3>
-        <div class="row-between">
-          <select id="billToSelect"></select>
-          <button id="addBillToBtn" class="mini-btn">+ Add</button>
-          <button id="editBillToBtn" class="mini-btn gray">✎</button>
-        </div>
-        <p id="billToAddress"></p>
-        <p id="billToEmail"></p>
-      </div>
+    <section class="bill-to">
+      <h3>BILL TO</h3>
+      <p contenteditable="true">[Recipient Name]</p>
+      <p contenteditable="true">[Company Name]</p>
+      <p contenteditable="true">[Street Address]</p>
+      <p contenteditable="true">[City, State, ZIP Code]</p>
+      <p contenteditable="true">[Phone]</p>
     </section>
 
-    <!-- Invoice Info -->
-    <section class="invoice-info">
-      <p><strong>Invoice #:</strong> <span id="invoiceNumber">001</span></p>
-      <p><strong>Date:</strong> <span id="invoiceDate"></span></p>
-      <p><strong>Due Date:</strong> <input type="date" id="dueDate"></p>
-      <p><strong>Status:</strong> 
-        <select id="invoiceStatus">
-          <option value="Unpaid">Unpaid</option>
-          <option value="Paid">Paid</option>
-          <option value="Overdue">Overdue</option>
-        </select>
+    <!-- Invoice Items -->
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="invoice-items">
+        <tr>
+          <td contenteditable="true">Product 1</td>
+          <td contenteditable="true" class="qty">2</td>
+          <td contenteditable="true" class="price">50.00</td>
+          <td class="amount">$100.00</td>
+        </tr>
+      </tbody>
+    </table>
+    <button id="add-item">+ Add Item</button>
+
+    <!-- Totals -->
+    <div class="totals">
+      <p><span>Subtotal:</span> <span id="subtotal">$0.00</span></p>
+      <p><span>Discounts:</span> <span id="discounts">$0.00</span></p>
+      <p><span>Taxes:</span> <span id="taxes">$0.00</span></p>
+      <p class="grand-total"><span>Total:</span> <span id="total">$0.00</span></p>
+    </div>
+
+    <!-- Comments -->
+    <section class="comments">
+      <h3>COMMENTS</h3>
+      <p contenteditable="true">
+        1. Payment due in 30 days<br>
+        2. Please note the invoice number in your payment method
       </p>
     </section>
 
-    <!-- Line Items -->
-    <section class="items">
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Qty</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody id="invoiceItems"></tbody>
-      </table>
-      <button id="addItemBtn">+ Add Item</button>
-    </section>
-
-    <!-- Totals -->
-    <section class="totals">
-      <p>Subtotal: $<span id="subtotal">0.00</span></p>
-      <p>Tax Rate: <input type="number" id="taxRate" value="0" min="0" step="0.1">% = $<span id="tax">0.00</span></p>
-      <p>Discount: <input type="number" id="discount" value="0" min="0" step="0.01"></p>
-      <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
-    </section>
-
-    <!-- PDF Buttons -->
-    <div class="button-row">
-      <button id="downloadPDFBtn" class="download-btn">📄 Download</button>
-      <button id="previewPDFBtn" class="preview-btn">👀 Preview</button>
-      <button id="printPDFBtn" class="print-btn">🖨️ Print</button>
-    </div>
+    <footer>
+      <p>Thank you for your business!</p>
+    </footer>
   </div>
 
-  <!-- JS Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
