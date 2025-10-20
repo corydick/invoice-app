@@ -8,11 +8,14 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="invoice-container">
+  <div class="invoice-container" id="invoice">
     <!-- Header -->
     <header>
       <div class="company-info">
-        <select id="companySelect"></select>
+        <div class="company-select-row">
+          <select id="companySelect"></select>
+          <button id="addCompanyBtn" class="mini-btn">+ Add</button>
+        </div>
         <p id="companyAddress"></p>
         <p id="companyContact"></p>
       </div>
@@ -21,20 +24,16 @@
       </div>
     </header>
 
-    <!-- Bill To / Ship To -->
+    <!-- Bill To -->
     <section class="addresses">
       <div>
         <h3>Bill To</h3>
-        <input type="text" placeholder="Client Name" id="billToName" />
-        <input type="text" placeholder="Client Address" id="billToAddress" />
-        <input type="email" placeholder="Client Email" id="billToEmail" />
-      </div>
-      <div>
-        <h3>Ship To</h3>
-        <select id="shipToSelect"></select>
-        <p id="shipToAddress"></p>
-        <p id="shipToPhone"></p>
-        <button id="addShipToBtn" type="button">+ Add New Ship To</button>
+        <div class="company-select-row">
+          <select id="billToSelect"></select>
+          <button id="addBillToBtn" class="mini-btn">+ Add</button>
+        </div>
+        <p id="billToAddress"></p>
+        <p id="billToEmail"></p>
       </div>
     </section>
 
@@ -72,8 +71,9 @@
     <button id="downloadPDFBtn" class="download-btn">📄 Download PDF</button>
   </div>
 
-  <!-- jsPDF -->
+  <!-- JS Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
