@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <title>Invoice App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -13,9 +12,9 @@
     <!-- Header -->
     <header>
       <div class="company-info">
-        <h1>Your Company Name</h1>
-        <p>123 Street Address, City, State</p>
-        <p>email@example.com | (555) 555-5555</p>
+        <select id="companySelect"></select>
+        <p id="companyAddress"></p>
+        <p id="companyContact"></p>
       </div>
       <div class="logo">
         <img src="logo.png" alt="Logo" />
@@ -32,9 +31,10 @@
       </div>
       <div>
         <h3>Ship To</h3>
-        <input type="text" placeholder="Recipient Name" id="shipToName" />
-        <input type="text" placeholder="Recipient Address" id="shipToAddress" />
-        <input type="tel" placeholder="Recipient Phone" id="shipToPhone" />
+        <select id="shipToSelect"></select>
+        <p id="shipToAddress"></p>
+        <p id="shipToPhone"></p>
+        <button id="addShipToBtn" type="button">+ Add New Ship To</button>
       </div>
     </section>
 
@@ -68,11 +68,11 @@
       <p><strong>Balance Due: $<span id="balanceDue">0.00</span></strong></p>
     </section>
 
-    <!-- Download Button -->
+    <!-- PDF Button -->
     <button id="downloadPDFBtn" class="download-btn">📄 Download PDF</button>
   </div>
 
-  <!-- JS Libraries -->
+  <!-- jsPDF -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
